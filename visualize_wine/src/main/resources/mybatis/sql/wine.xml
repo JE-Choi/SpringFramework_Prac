@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.devfun.mybatis.sql.wine">
+    <!-- 
+        mybatis-config.xml의 typeAlias에 등록해두지 않았다면 
+        
+        <select id="selectMember" resultType="com.example.dto.MemberVO" >
+            SELECT ID, PW ,NAME FROM TEST
+        </select>
+        
+        이렇게 해야 한다.
+    -->
+    
+    <select id="selectWineQuality" resultType="wineQualitylVO">
+    	
+    	SELECT count(product_seq) as cut,
+			(	
+				CASE 
+				<![CDATA[ 
+					WHEN 3 <= quality and quality <= 5
+					THEN "High"
+					WHEN 6 <= quality and quality <= 8
+					THEN "Low"
+					ELSE "None"
+				END
+		    ) AS quality
+		FROM product_quality 
+		group by 
+			(	
+				CASE 
+					WHEN 3 <= quality and quality <= 5
+					THEN "High"
+					WHEN 6 <= quality and quality <= 8
+					THEN "Low"
+					ELSE "None"
+				END
+	    	);   	
+	    ]]>
+    </select>
+    <select id="selectWineAlcohol" resultType="wineAlcoholVO">
+	    SELECT count(product_seq) as cut,
+			(	
+				CASE 
+				<![CDATA[ 
+					WHEN alcohol < 12.5
+					THEN "Low"
+					WHEN 12.5 <= alcohol and alcohol < 13.5
+					THEN "Medium"
+		            WHEN 13.5 <= alcohol
+					THEN "High"
+					ELSE "None"
+				END
+		    ) AS alcohol
+		FROM product_quality group by 
+			(	
+				CASE 
+					WHEN alcohol < 12.5
+					THEN "Low"
+					WHEN 12.5 <= alcohol and alcohol < 13.5
+					THEN "Medium"
+		            WHEN 13.5 <= alcohol
+					THEN "High"
+					ELSE "None"
+				END
+		    );	
+	    ]]>
+    </select>
+</mapper>
+
+

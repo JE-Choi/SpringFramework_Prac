@@ -17,11 +17,11 @@ function load_movielist(){
             //data:params,      
             success:function(args){
                 movieList = args;
-                for(var i=0;i<args.length;i++){
+                // i < args.length 으로 바꾸기
+                for(var i=0;i<10;i++){
                     html = "<tr>"
-                            + "<td>" + args[i].movie_name + "</td>" 
-                            + "<td>" + args[i].director + "</td>"
-                            + "<td>" + args[i].types + "</td>"
+                            + "<td>" + args[i].product_seq + "</td>" 
+                            + "<td>" + args[i].quality + "</td>"
                             "</tr>";
                     $("#movieList").append(html);
                 }
@@ -61,12 +61,11 @@ function load_movielist2(){
 			if (xhRequest.status === 200) {
 				movieList = JSON.parse(xhRequest.responseText);
 
-				for (var i = 0; i < movieList.length; i++) {
-					
+				// i < movieList.length 으로 바꾸기
+				for (var i = 0; i < 10; i++) {
 					html += "<tr>"
-	                        + "<td>" + movieList[i].movie_name + "</td>" 
-	                        + "<td>" + movieList[i].director + "</td>"
-	                        + "<td>" + movieList[i].types + "</td>"
+	                        + "<td>" + movieList[i].product_seq + "</td>" 
+	                        + "<td>" + movieList[i].quality + "</td>"
 	                        "</tr>";
 
 				}
